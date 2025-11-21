@@ -44,6 +44,10 @@ class BaseOptions(object):
         self.parser.add_argument('--verbose', '-v', default=True, type=str2bool, help='Whether to output debug info')
         self.parser.add_argument('--viz', action='store_true', help='Whether to output debug info')
         # self.parser.add_argument('--viz', default=True, type=str2bool, help='Whether to output debug info')
+        self.parser.add_argument('--viz_panel_width', default=320, type=int,
+                                 help='Width allocated to each visualization panel (pixels)')
+        self.parser.add_argument('--viz_height', default=320, type=int,
+                                 help='Height of visualization panels (pixels)')
 
         # train opts
         self.parser.add_argument('--max_epoch', default=250, type=int, help='Max epochs')

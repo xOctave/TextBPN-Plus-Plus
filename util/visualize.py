@@ -141,7 +141,10 @@ def visualize_gt(image, contours, label_tag):
     image_show = cv2.polylines(image_show,
                                [contours[i] for i, tag in enumerate(label_tag) if tag <0], True, (0, 255, 0), 3)
 
-    show_gt = cv2.resize(image_show, (320, 320))
+    panel_width = getattr(cfg, 'viz_panel_width', 320)
+    panel_height = getattr(cfg, 'viz_height', 320)
+
+    show_gt = cv2.resize(image_show, (panel_width, panel_height))
 
     return show_gt
 
@@ -210,7 +213,9 @@ def visualize_detection(image, output_dict, meta=None):
     # cv2.imwrite(path, im_show_score)
 
     show_img = np.concatenate(shows, axis=1)
-    show_boundary = cv2.resize(show_img, (320 * len(py_preds), 320))
+    panel_width = getattr(cfg, 'viz_panel_width', 320)
+    panel_height = getattr(cfg, 'viz_height', 320)
+    show_boundary = cv2.resize(show_img, (panel_width * len(py_preds), panel_height))
 
     # fig = plt.figure(figsize=(5, 4))
     # ax1 = fig.add_subplot(111)
@@ -240,6 +245,6 @@ def visualize_detection(image, output_dict, meta=None):
     dis_pred = cav.heatmap(np.array(cls_preds[1] * 255, dtype=np.uint8))
 
     heat_map = np.concatenate([cls_pred*255, dis_pred*255], axis=1)
-    heat_map = cv2.resize(heat_map, (320 * 2, 320))
+    heat_map = cv2.resize(heat_map, (panel_width * 2, panel_height))
 
     return show_boundary, heat_map

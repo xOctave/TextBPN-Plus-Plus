@@ -94,7 +94,8 @@ def inference(model, test_loader, output_dir):
             show_boundary, heat_map = visualize_detection(img_show, output_dict, meta=meta)
 
             show_map = np.concatenate([heat_map, gt_vis], axis=1)
-            show_map = cv2.resize(show_map, (320 * 3, 320))
+            if show_boundary.shape[:2] != show_map.shape[:2]:
+                show_boundary = cv2.resize(show_boundary, (show_map.shape[1], show_map.shape[0]))
             im_vis = np.concatenate([show_map, show_boundary], axis=0)
 
             path = os.path.join(cfg.vis_dir, '{}_test'.format(cfg.exp_name), meta['image_id'][idx].split(".")[0]+".jpg")

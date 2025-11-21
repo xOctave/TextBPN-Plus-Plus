@@ -11,6 +11,10 @@ config.stds = (0.229, 0.224, 0.225)
 
 config.gpu = "1"
 
+# Visualization defaults
+config.viz_panel_width = 320
+config.viz_height = 320
+
 # Experiment name #
 config.exp_name = "Synthtext"
 
